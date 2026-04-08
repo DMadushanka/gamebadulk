@@ -1,0 +1,342 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary: #2E7D32;
+    --primary-light: #4caf50;
+    --secondary: #C8A84B;
+    --dark: #121212;
+    --light: #f8f9fa;
+    --glass: rgba(255, 255, 255, 0.85);
+    --glass-dark: rgba(20, 20, 20, 0.9);
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Essential Resets & Overrides --- */
+body {
+    font-family: 'Inter', sans-serif !important;
+    color: #333 !important;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 700 !important;
+}
+
+/* Force Hide original preloader if it lags */
+#preloder {
+    display: none !important;
+}
+
+/* --- Premium Header Design --- */
+.header {
+    background: #beda9a !important;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding: 15px 0;
+}
+
+.header__top {
+    background: #fdfdfd !important;
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+
+.header.sticky {
+    position: fixed !important;
+    top: 20px;
+    left: 10%;
+    right: 10%;
+    width: 80%;
+    background: var(--glass) !important;
+    backdrop-filter: blur(15px);
+    border-radius: 50px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    z-index: 9999;
+    padding: 5px 30px !important;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Hide top bar on scroll for minimalism */
+.header.sticky .header__top {
+    display: none;
+}
+
+.header__menu ul li {
+    margin-right: 40px !important;
+}
+
+.header__menu ul li a {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.2px !important;
+    position: relative;
+    padding: 10px 0 !important;
+    color: #111 !important;
+}
+
+.header__menu ul li a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: var(--primary);
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    transform: translateX(-50%);
+}
+
+.header__menu ul li:hover a::before,
+.header__menu ul li.active a::before {
+    width: 25px;
+}
+
+.header__cart ul li a i {
+    font-size: 20px !important;
+    transition: var(--transition);
+}
+
+.header__cart ul li a:hover i {
+    color: var(--primary) !important;
+    transform: scale(1.2);
+}
+
+.header__cart ul li a span {
+    background: var(--primary) !important;
+    box-shadow: 0 3px 6px rgba(46, 125, 50, 0.3);
+}
+
+.header__menu ul li .header__menu__dropdown {
+    background: var(--glass-dark) !important;
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    top: 50px !important;
+    padding: 10px 0 !important;
+}
+
+.header__menu ul li:hover .header__menu__dropdown {
+    top: 40px !important;
+}
+
+.header__menu ul li .header__menu__dropdown li a {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 13px !important;
+    padding: 8px 20px !important;
+    transition: var(--transition);
+}
+
+.header__menu ul li .header__menu__dropdown li a:hover {
+    color: var(--primary-light) !important;
+    padding-left: 25px !important;
+}
+
+/* --- Hero Section --- */
+.hero__item {
+    border-radius: 30px !important;
+    box-shadow: var(--shadow-lg);
+}
+
+.hero__text h2 {
+    font-size: 60px !important;
+    color: #fff !important;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+.primary-btn {
+    border-radius: 50px !important;
+    background: linear-gradient(45deg, var(--primary), #43a047) !important;
+    border: none !important;
+    padding: 15px 40px !important;
+    box-shadow: 0 10px 20px rgba(46, 125, 50, 0.2) !important;
+}
+
+/* --- Cards & Sections --- */
+/* --- Pricing & Badges --- */
+.featured__item__text h5 {
+    color: var(--primary) !important;
+    font-weight: 800 !important;
+    font-size: 20px;
+}
+
+.featured__item__pic {
+    overflow: hidden;
+}
+
+.featured__item__pic img {
+    transition: transform 0.5s ease;
+}
+
+.featured__item:hover .featured__item__pic img {
+    transform: scale(1.1);
+}
+
+/* --- Premium Search Bar --- */
+.hero__search__form {
+    border-radius: 50px !important;
+    border: none !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08) !important;
+}
+
+.hero__search__form input {
+    background: transparent !important;
+}
+
+/* --- Categories Sidebar --- */
+.hero__categories {
+    border: none !important;
+    background: #fff !important;
+    box-shadow: var(--shadow-md) !important;
+    border-radius: 20px !important;
+}
+
+.hero__categories__all {
+    border-radius: 20px 20px 0 0 !important;
+    background: var(--primary) !important;
+}
+
+.hero__categories ul {
+    border: none !important;
+    padding: 10px 20px !important;
+}
+
+.hero__categories ul li a:hover {
+    color: var(--primary) !important;
+    padding-left: 10px;
+    background: rgba(46, 125, 50, 0.05);
+    border-radius: 8px;
+}
+
+/* --- Misc --- */
+.section-title h2 {
+    letter-spacing: -1px;
+}
+
+.primary-btn {
+    text-shadow: none !important;
+}
+
+/* --- Footer --- */
+.footer {
+    background: var(--dark) !important;
+    color: #fff !important;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer__about ul li, .footer__widget ul li a, .footer__widget p {
+    color: rgba(255,255,255,0.6) !important;
+}
+
+/* --- Animations --- */
+body.js-enabled .animate {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+body.js-enabled .animate.revealed {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Scroll progress should only show if JS is working */
+body:not(.js-enabled) .scroll-progress {
+    display: none;
+}
+
+/* --- Scroll Progress Bar --- */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    z-index: 10000;
+}
+
+/* --- Header Entrance Animation --- */
+.header {
+    animation: slideDown 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* --- Mobile Menu Modernization (Slicknav) --- */
+.slicknav_menu {
+    background: transparent !important;
+    padding: 20px 0 !important;
+}
+
+.slicknav_btn {
+    background: var(--primary) !important;
+    border-radius: 8px !important;
+}
+
+.slicknav_nav {
+    background: var(--glass-dark) !important;
+    backdrop-filter: blur(15px);
+    border-radius: 20px !important;
+    margin-top: 15px !important;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.slicknav_nav a {
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 600 !important;
+    border-radius: 10px !important;
+    transition: var(--transition) !important;
+}
+
+.slicknav_nav a:hover {
+    background: rgba(255,255,255,0.05) !important;
+    color: var(--primary-light) !important;
+}
+/* --- Animated Brand Identity --- */
+.brand-logo {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 28px !important;
+    font-weight: 900 !important;
+    letter-spacing: -1px !important;
+    text-transform: uppercase;
+    display: inline-block;
+    position: relative;
+    background: linear-gradient(45deg, var(--primary), var(--secondary), var(--primary));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+.header__logo a img, .humberger__menu__logo a img, .footer__about__logo a img {
+    display: none !important;
+}
+
+.header__logo a::after, .humberger__menu__logo a::after, .footer__about__logo a::after {
+    content: 'GAMEBADU.LK';
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: 26px;
+    letter-spacing: -1px;
+    background: linear-gradient(45deg, var(--primary), #43a047);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    animation: fadeInUp 0.8s ease;
+}
