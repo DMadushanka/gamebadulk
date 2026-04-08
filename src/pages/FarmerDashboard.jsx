@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { collection, addDoc, serverTimestamp, query, where, onSnapshot } from 'firebase/firestore';
 import feature1 from '../img/featured/feature-1.jpg';
 
-const CLOUDINARY_CLOUD = 'dkjay4gzf';
-const CLOUDINARY_PRESET = 'gamebadu';
+const CLOUDINARY_CLOUD = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'dkjay4gzf';
+const CLOUDINARY_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || 'gamebadu';
 
 const DISTRICTS = [
   'Matale', 'Kandy', 'Kurunegala', 'Kegalle', 'Colombo', 'Gampaha',
