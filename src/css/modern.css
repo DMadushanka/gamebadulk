@@ -340,3 +340,41 @@ body:not(.js-enabled) .scroll-progress {
     display: inline-block;
     animation: fadeInUp 0.8s ease;
 }
+
+/* --- Mobile Menu Styles --- */
+.humberger__menu__nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.humberger__menu__nav ul li {
+    display: block;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.humberger__menu__nav ul li:last-child {
+    border-bottom: none;
+}
+
+.humberger__menu__nav ul li a {
+    display: block;
+    padding: 15px 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #222 !important;
+    transition: var(--transition);
+}
+
+.humberger__menu__nav ul li:hover a,
+.humberger__menu__nav ul li.active a {
+    color: var(--primary) !important;
+    padding-left: 15px;
+}
+
+@media only screen and (max-width: 767px) {
+    .humberger__menu__nav {
+        display: block !important;
+    }
+}

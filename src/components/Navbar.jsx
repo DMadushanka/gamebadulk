@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import logoImg from '../img/logo.png';
 import { auth } from '../firebase';
@@ -7,6 +7,7 @@ import { signOut } from 'firebase/auth';
 const Navbar = ({ user, userData }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const isActive = (path) => {
     return location.pathname === path ? 'active' : '';
@@ -24,8 +25,11 @@ const Navbar = ({ user, userData }) => {
 
   return (
     <>
-      <div className="humberger__menu__overlay"></div>
-      <div className="humberger__menu__wrapper">
+      <div 
+        className={`humberger__menu__overlay ${isMenuOpen ? 'active' : ''}`}
+        onClick={() => setIsMenuOpen(false)}
+      ></div>
+      <div className={`humberger__menu__wrapper ${isMenuOpen ? 'show__humberger__menu__wrapper' : ''}`}>
         <div className="humberger__menu__logo">
           <Link to="/"><img src={logoImg} alt="Logo" /></Link>
         </div>
@@ -56,7 +60,7 @@ const Navbar = ({ user, userData }) => {
           )}
         </div>
         <nav className="humberger__menu__nav mobile-menu">
-          <ul>
+          <ul onClick={() => setIsMenuOpen(false)}>
             <li className={isActive('/')}><Link to="/">Home</Link></li>
             <li className={isActive('/marketplace')}><Link to="/marketplace">Marketplace</Link></li>
             <li className={isActive('/spice-stories')}><Link to="/spice-stories">Spice Stories</Link></li>
@@ -161,7 +165,7 @@ const Navbar = ({ user, userData }) => {
               </div>
             </div>
           </div>
-          <div className="humberger__open">
+          <div className="humberger__open" onClick={() => setIsMenuOpen(true)}>
             <i className="fa fa-bars"></i>
           </div>
         </div>

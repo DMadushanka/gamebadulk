@@ -4,7 +4,7 @@ import logoImg from '../img/logo.png';
 
 const Footer = () => {
   return (
-    <footer className="footer spad animate" style={{ background: '#121212', color: '#fff' }}>
+    <footer className="footer animate" style={{ background: '#121212', color: '#fff', padding: '40px 0 20px' }}>
       <div className="container">
         <div className="row">
           <div className="col-lg-3 col-md-6 col-sm-6">
