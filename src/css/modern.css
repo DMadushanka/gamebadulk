@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=Righteous&family=Syne:wght@800&family=MuseoModerno:wght@800&display=swap');
 
 :root {
     --primary: #2E7D32;
@@ -33,15 +33,29 @@ h1, h2, h3, h4, h5, h6 {
 
 /* --- Premium Header Design --- */
 .header {
-    background: #beda9a !important;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    padding: 15px 0;
+    background: rgba(7, 66, 11, 0.95) !important; /* Deep Forest Green */
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 0;
+    position: relative;
+    z-index: 1000;
 }
 
 .header__top {
-    background: #fdfdfd !important;
-    border-bottom: 1px solid rgba(0,0,0,0.03);
+    background: #0d2b0e !important; /* Even darker green for top bar */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header__top__left ul li, 
+.header__top__right__social a, 
+.header__top__right__auth a, 
+.header__top__right__language div {
+    color: #ffffff !important;
+}
+
+.header__cart__price, .header__cart__price span {
+    color: #ffffff !important;
 }
 
 .header.sticky {
@@ -50,14 +64,14 @@ h1, h2, h3, h4, h5, h6 {
     left: 10%;
     right: 10%;
     width: 80%;
-    background: var(--glass) !important;
+    background: rgba(27, 94, 32, 0.9) !important; /* Sticky dark green glass */
     backdrop-filter: blur(15px);
     border-radius: 50px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
     z-index: 9999;
     padding: 5px 30px !important;
     margin: 0 auto;
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Hide top bar on scroll for minimalism */
@@ -72,10 +86,10 @@ h1, h2, h3, h4, h5, h6 {
 .header__menu ul li a {
     font-size: 15px !important;
     font-weight: 700 !important;
-    letter-spacing: -0.2px !important;
+    letter-spacing: 0.5px !important;
     position: relative;
     padding: 10px 0 !important;
-    color: #111 !important;
+    color: #ffffff !important; /* White text for dark background */
 }
 
 .header__menu ul li a::before {
@@ -99,16 +113,17 @@ h1, h2, h3, h4, h5, h6 {
 .header__cart ul li a i {
     font-size: 20px !important;
     transition: var(--transition);
+    color: #ffffff !important;
 }
 
 .header__cart ul li a:hover i {
-    color: var(--primary) !important;
+    color: var(--secondary) !important;
     transform: scale(1.2);
 }
 
 .header__cart ul li a span {
-    background: var(--primary) !important;
-    box-shadow: 0 3px 6px rgba(46, 125, 50, 0.3);
+    background: var(--secondary) !important;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 .header__menu ul li .header__menu__dropdown {
@@ -231,8 +246,27 @@ h1, h2, h3, h4, h5, h6 {
     border-top: 1px solid rgba(255,255,255,0.05);
 }
 
-.footer__about ul li, .footer__widget ul li a, .footer__widget p {
-    color: rgba(255,255,255,0.6) !important;
+.footer__about ul li, 
+.footer__widget ul li a, 
+.footer__widget p,
+.footer__widget h6,
+.footer__copyright__text,
+.footer__copyright__text p {
+    color: rgba(255,255,255,0.8) !important;
+}
+
+.footer__widget ul li a:hover {
+    color: var(--primary-light) !important;
+}
+
+.footer__widget form input {
+    background: rgba(255,255,255,0.05) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    color: #fff !important;
+}
+
+.footer__widget form input::placeholder {
+    color: rgba(255,255,255,0.4) !important;
 }
 
 /* --- Animations --- */
@@ -324,32 +358,22 @@ body:not(.js-enabled) .scroll-progress {
     100% { background-position: 200% center; }
 }
 
-.header__logo a img, .humberger__menu__logo a img, .footer__about__logo a img {
-    display: none !important;
+/* --- Premium Logo Animation (Global) --- */
+.header__logo a img, .footer__about__logo a img, .humberger__menu__logo a img {
+    height: 100px !important; /* Force heritage/legacy logo to be large too */
+    width: auto !important;
+    display: block !important;
+    animation: logoPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15)) !important;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Syne:wght@800&display=swap');
-
-.header__logo a::after, .humberger__menu__logo a::after, .footer__about__logo a::after {
-    content: 'GAMEBADU.LK';
-    font-family: 'Righteous', cursive !important;
-    font-weight: 400;
-    font-size: 30px;
-    letter-spacing: 0.5px;
-    background: linear-gradient(90deg, #2E7D32, #689F38, #C8A84B, #2E7D32);
-    background-size: 300% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
-    animation: luxury-flow 6s linear infinite;
-    text-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    filter: drop-shadow(0 2px 2px rgba(46, 125, 50, 0.1));
+@keyframes logoPop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
-@keyframes luxury-flow {
-    0% { background-position: 0% center; transform: translateY(0px) scale(1); }
-    50% { background-position: 150% center; transform: translateY(-3px) scale(1.02); }
-    100% { background-position: 300% center; transform: translateY(0px) scale(1); }
+@keyframes shineText {
+    to { background-position: 200% center; }
 }
 
 /* --- Mobile Menu Styles --- */

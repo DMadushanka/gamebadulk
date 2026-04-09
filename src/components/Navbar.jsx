@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import logoImg from '../img/logo.png';
+import Logo from './Logo';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 
-const Navbar = ({ user, userData }) => {
+const Navbar = ({ user, userData, cart = [], removeFromCart }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,14 +32,12 @@ const Navbar = ({ user, userData }) => {
       ></div>
       <div className={`humberger__menu__wrapper ${isMenuOpen ? 'show__humberger__menu__wrapper' : ''}`}>
         <div className="humberger__menu__logo">
-          <Link to="/"><img src={logoImg} alt="Logo" /></Link>
+          <Link to="/"><Logo /></Link>
         </div>
         <div className="humberger__menu__cart">
           <ul>
-            <li><a href="#"><i className="fa fa-heart"></i> <span>1</span></a></li>
-            <li><a href="#"><i className="fa fa-shopping-bag"></i> <span>3</span></a></li>
+            <li><Link to="/cart"><i className="fa fa-shopping-bag"></i> <span>{cart.length}</span></Link></li>
           </ul>
-          <div className="header__cart__price">item: <span>$150.00</span></div>
         </div>
         <div className="humberger__menu__widget">
           {user && userData ? (
@@ -90,7 +89,7 @@ const Navbar = ({ user, userData }) => {
           <div className="row">
             <div className="col-lg-3">
               <div className="header__logo">
-                <Link to="/"><img src={logoImg} alt="" /></Link>
+                <Link to="/"><Logo /></Link>
               </div>
             </div>
             <div className="col-lg-6">
@@ -108,6 +107,25 @@ const Navbar = ({ user, userData }) => {
             </div>
             <div className="col-lg-3">
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%', gap: '10px' }}>
+                {/* Cart Icon */}
+                <div style={{ position: 'relative', marginRight: '15px' }}>
+                  <Link to="/cart" style={{ fontSize: '20px', color: '#fff', position: 'relative' }}>
+                    <i className="fa fa-shopping-bag" />
+                    {cart.length > 0 && (
+                      <span style={{
+                        position: 'absolute', top: '-10px', right: '-12px',
+                        background: 'var(--secondary)', color: '#fff',
+                        fontSize: '10px', fontWeight: 900, width: '18px', height: '18px',
+                        borderRadius: '50%', display: 'flex', alignItems: 'center',
+                        justifyContent: 'center', border: '2px solid var(--primary)',
+                        padding: '1px'
+                      }}>
+                        {cart.length}
+                      </span>
+                    )}
+                  </Link>
+                </div>
+
                 {user && userData ? (
                   <>
                     {userData.role !== 'customer' && (

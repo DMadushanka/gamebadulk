@@ -13,7 +13,7 @@ import cat7 from '../img/categories/cat-7.png';
 import feature1 from '../img/featured/feature-1.jpg';
 import FarmersMapModal from '../components/FarmersMapModal';
 
-const Home = ({ userData }) => {
+const Home = ({ user, userData, addToCart }) => {
   const [approvedProducts, setApprovedProducts] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [activeCategory, setActiveCategory] = useState('All');
@@ -28,6 +28,41 @@ const Home = ({ userData }) => {
     if (!searchQuery && !selectedDistrict) return navigate('/marketplace');
     const finalSearch = `${selectedDistrict} ${searchQuery}`.trim();
     navigate('/marketplace', { state: { initialSearch: finalSearch } });
+  };
+
+  const [processingItems, setProcessingItems] = useState({});
+
+  const handleAdd = (offer) => {
+    if (!user) {
+      navigate('/auth');
+      return;
+    }
+    setProcessingItems(prev => ({ ...prev, [offer.id]: 'adding' }));
+    addToCart(offer);
+    setTimeout(() => {
+      setProcessingItems(prev => {
+        const next = { ...prev };
+        delete next[offer.id];
+        return next;
+      });
+    }, 800);
+  };
+
+  const handleBuy = (offer) => {
+    if (!user) {
+      navigate('/auth');
+      return;
+    }
+    setProcessingItems(prev => ({ ...prev, [offer.id]: 'buying' }));
+    addToCart(offer);
+    setTimeout(() => {
+      setProcessingItems(prev => {
+        const next = { ...prev };
+        delete next[offer.id];
+        return next;
+      });
+      navigate('/cart');
+    }, 600);
   };
 
   useEffect(() => {
@@ -415,41 +450,65 @@ const Home = ({ userData }) => {
               </h6>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                {selectedGroup.offers.map(offer => (
-                  <div key={offer.id} className="modal-offer-item" style={{
-                    border: '1px solid #eee', borderRadius: '16px', padding: '16px 20px',
-                    display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between',
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.03)'
-                  }}>
-                    <div className="modal-offer-info">
-                      <div style={{ fontSize: '20px', fontWeight: 800, color: '#2E7D32' }}>
-                        Rs. {offer.price} <span style={{ fontSize: '13px', color: '#aaa', fontWeight: 400 }}>/{offer.unit || 'kg'}</span>
+                {selectedGroup.offers.map(offer => {
+                  const status = processingItems[offer.id];
+                  const isAdding = status === 'adding';
+                  const isBuying = status === 'buying';
+
+                  return (
+                    <div key={offer.id} className="modal-offer-item" style={{
+                      border: '1px solid #eee', borderRadius: '16px', padding: '16px 20px',
+                      display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between',
+                      boxShadow: '0 4px 10px rgba(0,0,0,0.03)'
+                    }}>
+                      <div className="modal-offer-info">
+                        <div style={{ fontSize: '20px', fontWeight: 800, color: '#2E7D32' }}>
+                          Rs. {offer.price} <span style={{ fontSize: '13px', color: '#aaa', fontWeight: 400 }}>/{offer.unit || 'kg'}</span>
+                        </div>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', marginTop: '6px', fontSize: '13px', color: '#666' }}>
+                          <span><i className="fa fa-map-marker" style={{ color: 'var(--primary)' }} /> {offer.district}</span>
+                          <span><i className="fa fa-envelope" /> {offer.farmerEmail}</span>
+                          {offer.quantity > 0 && <span>🧮 Qty: {offer.quantity}</span>}
+                        </div>
                       </div>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', marginTop: '6px', fontSize: '13px', color: '#666' }}>
-                        <span><i className="fa fa-map-marker" style={{ color: 'var(--primary)' }} /> {offer.district}</span>
-                        <span><i className="fa fa-envelope" /> {offer.farmerEmail}</span>
-                        {offer.quantity > 0 && <span>🧮 Qty: {offer.quantity}</span>}
+                      <div className="modal-offer-actions" style={{ display: 'flex', gap: '8px', marginTop: '10px', flexWrap: 'wrap' }}>
+                        <button 
+                          onClick={() => handleAdd(offer)}
+                          disabled={!!status}
+                          style={{
+                            background: isAdding ? '#f0f0f0' : '#fff', 
+                            color: '#2E7D32', border: '2px solid #2E7D32', 
+                            padding: '10px 16px', borderRadius: '10px',
+                            fontWeight: 700, fontSize: '14px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px',
+                            transition: 'all 0.3s'
+                          }}>
+                          {isAdding ? <><i className="fa fa-circle-o-notch fa-spin"></i> Adding...</> : <><i className="fa fa-shopping-cart" /> Add to Cart</>}
+                        </button>
+                        <button 
+                          onClick={() => handleBuy(offer)}
+                          disabled={!!status}
+                          style={{
+                            background: isBuying ? '#1b5e20' : '#2E7D32', 
+                            color: '#fff', border: 'none', 
+                            padding: '10px 16px', borderRadius: '10px',
+                            fontWeight: 700, fontSize: '14px', cursor: 'pointer',
+                            display: 'flex', alignItems: 'center', gap: '6px',
+                            transition: 'all 0.3s'
+                          }}>
+                          {isBuying ? <><i className="fa fa-circle-o-notch fa-spin"></i> Buying...</> : 'Buy Now'}
+                        </button>
+                        <a href={`https://wa.me/94${(offer.phone || '770000000').replace(/^0/, '')}`}
+                          target="_blank" rel="noopener noreferrer"
+                          style={{
+                            background: '#25D366', color: '#fff', padding: '10px 16px', borderRadius: '10px',
+                            textDecoration: 'none', fontWeight: 600, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '6px'
+                          }}>
+                          <i className="fa fa-whatsapp" style={{ fontSize: '18px' }} /> WhatsApp
+                        </a>
                       </div>
                     </div>
-                    <div className="modal-offer-actions" style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
-                      <a href={`https://wa.me/94${(offer.phone || '770000000').replace(/^0/, '')}`}
-                        target="_blank" rel="noopener noreferrer"
-                        style={{
-                          background: '#25D366', color: '#fff', padding: '10px 16px', borderRadius: '10px',
-                          textDecoration: 'none', fontWeight: 600, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '6px'
-                        }}>
-                        <i className="fa fa-whatsapp" style={{ fontSize: '18px' }} /> WhatsApp
-                      </a>
-                      <a href={`tel:${offer.phone || '+94770000000'}`}
-                        style={{
-                          background: '#1565C0', color: '#fff', padding: '10px 16px', borderRadius: '10px',
-                          textDecoration: 'none', fontWeight: 600, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '6px'
-                        }}>
-                        <i className="fa fa-phone" style={{ fontSize: '18px' }} /> Call
-                      </a>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>

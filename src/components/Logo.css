@@ -1,0 +1,66 @@
+.logo-container-modern {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: auto !important;
+  overflow: visible !important;
+  position: relative;
+  /* Entrance and Floating handled here */
+  animation: 
+    logoEntrance3D 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+    logoFloatHeroic 5s ease-in-out 1.2s infinite alternate;
+}
+
+.logo-image-premium {
+  height: 65px !important;
+  width: auto !important;
+  display: block !important;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
+  /* Pulsing handled here to avoid transform conflicts */
+  animation: logoGlowPulse 4s ease-in-out infinite;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logo-image-premium:hover {
+  transform: scale(1.1) rotate(2deg);
+  filter: drop-shadow(0 0 25px rgba(236, 240, 4, 0.6)) brightness(1.1);
+}
+
+@keyframes logoEntrance3D {
+  0% { transform: perspective(500px) rotateX(-90deg) translateY(30px); opacity: 0; }
+  100% { transform: perspective(500px) rotateX(0deg) translateY(0); opacity: 1; }
+}
+
+@keyframes logoFloatHeroic {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-12px); }
+}
+
+@keyframes logoGlowPulse {
+  0%, 100% { filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2)) brightness(1); }
+  50% { filter: drop-shadow(0 0 20px rgba(236, 240, 4, 0.4)) brightness(1.2); }
+}
+
+/* Gold Shimmer Sweep */
+.logo-container-modern::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60px;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(236, 240, 4, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-20deg);
+  animation: logoShimmerPremium 4s infinite 3s;
+  pointer-events: none;
+}
+
+@keyframes logoShimmerPremium {
+  0% { left: -100%; }
+  30%, 100% { left: 200%; }
+}

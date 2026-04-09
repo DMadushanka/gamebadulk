@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logoImg from '../img/logo.png';
+import Logo from './Logo';
 
 const Footer = () => {
   return (
@@ -10,7 +11,7 @@ const Footer = () => {
           <div className="col-lg-3 col-md-6 col-sm-6">
             <div className="footer__about">
               <div className="footer__about__logo">
-                <Link to="/"><img src={logoImg} alt="" /></Link>
+                <Link to="/"><Logo /></Link>
               </div>
               <ul>
                 <li>Address: Community Trade Center, Sri Lanka</li>
@@ -24,9 +25,9 @@ const Footer = () => {
               <h6>Useful Links</h6>
               <ul>
                 <li><Link to="#">About Us</Link></li>
-                <li><Link to="#">Contact</Link></li>
-                <li><Link to="#">Privacy Policy</Link></li>
-                <li><Link to="#">Our Sitemap</Link></li>
+                <li><Link to="/contact">Contact</Link></li>
+                <li><Link to="/privacy">Privacy Policy</Link></li>
+                <li><Link to="/terms">Terms & Conditions</Link></li>
               </ul>
             </div>
           </div>
