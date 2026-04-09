@@ -106,20 +106,13 @@ const Navbar = ({ user, userData, cart = [], removeFromCart }) => {
               </nav>
             </div>
             <div className="col-lg-3">
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%', gap: '10px' }}>
+              <div className="header__actions">
                 {/* Cart Icon */}
-                <div style={{ position: 'relative', marginRight: '15px' }}>
-                  <Link to="/cart" style={{ fontSize: '20px', color: '#fff', position: 'relative' }}>
+                <div className="header__cart__icon">
+                  <Link to="/cart">
                     <i className="fa fa-shopping-bag" />
                     {cart.length > 0 && (
-                      <span style={{
-                        position: 'absolute', top: '-10px', right: '-12px',
-                        background: 'var(--secondary)', color: '#fff',
-                        fontSize: '10px', fontWeight: 900, width: '18px', height: '18px',
-                        borderRadius: '50%', display: 'flex', alignItems: 'center',
-                        justifyContent: 'center', border: '2px solid var(--primary)',
-                        padding: '1px'
-                      }}>
+                      <span className="cart-badge">
                         {cart.length}
                       </span>
                     )}
@@ -131,36 +124,29 @@ const Navbar = ({ user, userData, cart = [], removeFromCart }) => {
                     {userData.role !== 'customer' && (
                       <Link
                         to={getDashboardLink()}
-                        style={{
-                          display: 'inline-flex', alignItems: 'center', gap: '7px',
-                          padding: '10px 18px', borderRadius: '50px', fontWeight: 700,
-                          fontSize: '13px', textDecoration: 'none', transition: 'all 0.3s',
-                          background: userData.role === 'admin'
-                            ? 'linear-gradient(135deg, #0d47a1, #1565C0)'
-                            : userData.role === 'transport'
-                            ? 'linear-gradient(135deg, #E65100, #F57C00)'
-                            : 'linear-gradient(135deg, #1B5E20, #2E7D32)',
-                          color: '#fff',
-                          boxShadow: userData.role === 'admin'
-                            ? '0 4px 15px rgba(13,71,161,0.4)'
-                            : '0 4px 15px rgba(46,125,50,0.4)',
-                        }}
+                        className={`dashboard-btn role-${userData.role}`}
                       >
                         <i className={`fa ${
                           userData.role === 'admin' ? 'fa-shield' :
                           userData.role === 'transport' ? 'fa-truck' : 'fa-leaf'
                         }`} />
+                        <span className="btn-text">
                         {userData.role === 'admin' ? 'Admin Panel' :
                          userData.role === 'transport' ? 'Transport' : 'Sell Product'}
+                        </span>
                       </Link>
                     )}
+                    <Link
+                      to="/profile"
+                      className="logout-btn"
+                      title="My Profile"
+                      style={{ border: '1.5px solid rgba(255, 255, 255, 0.4)' }}
+                    >
+                      <i className="fa fa-user-circle-o" />
+                    </Link>
                     <button
                       onClick={handleLogout}
-                      style={{
-                        padding: '10px 14px', borderRadius: '50px', border: '1.5px solid #ddd',
-                        background: '#fff', color: '#555', fontWeight: 600, fontSize: '13px',
-                        cursor: 'pointer', transition: 'all 0.3s',
-                      }}
+                      className="logout-btn"
                       title="Logout"
                     >
                       <i className="fa fa-sign-out" />
@@ -169,15 +155,9 @@ const Navbar = ({ user, userData, cart = [], removeFromCart }) => {
                 ) : (
                   <Link
                     to="/auth"
-                    style={{
-                      display: 'inline-flex', alignItems: 'center', gap: '7px',
-                      padding: '10px 20px', borderRadius: '50px', fontWeight: 700,
-                      fontSize: '13px', textDecoration: 'none',
-                      background: 'linear-gradient(135deg, #1B5E20, #2E7D32)',
-                      color: '#fff', boxShadow: '0 4px 15px rgba(46,125,50,0.35)',
-                    }}
+                    className="login-btn"
                   >
-                    <i className="fa fa-user" /> Login
+                    <i className="fa fa-user" /> <span className="btn-text">Login</span>
                   </Link>
                 )}
               </div>

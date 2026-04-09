@@ -16,6 +16,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import TransportDashboard from './pages/TransportDashboard';
 import Cart from './pages/Cart';
 import Legal from './pages/Legal';
+import Profile from './pages/Profile';
 
 
 function App() {
@@ -130,8 +131,8 @@ function App() {
         <Route path="/farmer" element={user && userData?.role === 'farmer' ? <FarmerDashboard /> : <Navigate to="/" />} />
         <Route path="/admin" element={user && userData?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/" />} />
         <Route path="/transport" element={user && userData?.role === 'transport' ? <TransportDashboard /> : <Navigate to="/" />} />
-        <Route path="/privacy" element={<Legal type="privacy" />} />
         <Route path="/terms" element={<Legal type="terms" />} />
+        <Route path="/profile" element={user ? <Profile user={user} userData={userData} /> : <Navigate to="/auth" />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Footer />
